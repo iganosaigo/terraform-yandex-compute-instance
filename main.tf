@@ -24,7 +24,6 @@ resource "yandex_compute_disk" "this" {
   labels     = each.value.labels
 }
 
-
 resource "yandex_compute_instance" "this" {
   name               = var.name
   folder_id          = var.folder_id
@@ -36,7 +35,6 @@ resource "yandex_compute_instance" "this" {
   labels             = var.labels
 
   allow_stopping_for_update = var.allow_stopping_for_update
-
   network_acceleration_type = var.network_acceleration_type
 
   scheduling_policy {
@@ -91,7 +89,7 @@ resource "yandex_compute_instance" "this" {
 
   metadata = {
     serial-port-enable = local.serial_port_enable
-    ssh-keys           = "${var.ssh_user}:${file("${var.ssh_pubkey}")}"
+    ssh-keys           = "${var.ssh_user}:${file(var.ssh_pubkey)}"
     user-data          = var.user_data
   }
 
