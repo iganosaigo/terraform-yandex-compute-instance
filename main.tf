@@ -7,7 +7,7 @@ locals {
   use_snapshot       = var.image_snapshot_id != null ? true : false
   image_id = (
     coalesce(
-      var.boot_disk_initialize_params.image_id,
+      var.image_id,
       data.yandex_compute_image.this.id
   ))
 }
@@ -91,7 +91,7 @@ resource "yandex_compute_instance" "this" {
 
   metadata = {
     serial-port-enable = local.serial_port_enable
-    ssh-keys           = var.ssh_pubkey
+    ssh-keys           = "${var.ssh_user}:${file("${var.ssh_pubkey}")}"
     user-data          = var.user_data
   }
 

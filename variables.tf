@@ -21,13 +21,6 @@ variable "zone" {
   default     = null
 }
 
-
-variable "image_id" {
-  description = "Image ID"
-  type        = string
-  default     = null
-}
-
 variable "platform_id" {
   description = "Hardware CPU platform name"
   type        = string
@@ -105,7 +98,7 @@ variable "boot_disk" {
 variable "image_snapshot_id" {
   description = <<-EOT
 Image snapshot id to initialize from.
-Highest priority over var.boot_disk_initialize_params.image_id
+Highest priority over var.image_id
 and var.image_family"
 EOT
   type        = string
@@ -113,15 +106,10 @@ EOT
 
 }
 
-variable "boot_disk_initialize_params" {
-  description = "Parameters for a new disk. image_id has middle priority."
-  type = object({
-    image_id   = optional(string)
-    size       = optional(number)
-    block_size = optional(number)
-    type       = optional(string, "network-hdd")
-  })
-  default = {}
+variable "image_id" {
+  description = "Image ID. Has middle priority"
+  type        = string
+  default     = null
 }
 
 variable "image_family" {
@@ -130,7 +118,17 @@ variable "image_family" {
   default     = "almalinux-8"
 }
 
-variable "boot_user" {
+variable "boot_disk_initialize_params" {
+  description = "Parameters for a new disk.id has middle priority."
+  type = object({
+    size       = optional(number)
+    block_size = optional(number)
+    type       = optional(string, "network-hdd")
+  })
+  default = {}
+}
+
+variable "ssh_user" {
   description = "Username for booted instance"
   type        = string
   default     = "almalinux"
@@ -139,7 +137,7 @@ variable "boot_user" {
 variable "ssh_pubkey" {
   description = "Public RSA key to inject"
   type        = string
-  default     = null
+  default     = "~/.ssh/id_rsa.pub"
 }
 
 variable "user_data" {
