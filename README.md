@@ -83,7 +83,6 @@ module "example" {
 	 user_data  = null
 	 zone  = null
 }
-}
 ```
 
 ## Resources
