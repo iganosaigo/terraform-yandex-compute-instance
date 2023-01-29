@@ -6,7 +6,6 @@ variable "name" {
 variable "subnet_id" {
   description = "VPC Subnet ID"
   type        = string
-  default     = null
 }
 
 variable "folder_id" {

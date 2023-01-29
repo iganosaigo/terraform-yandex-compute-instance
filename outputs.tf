@@ -1,9 +1,10 @@
 output "compute_instance" {
-  value = yandex_compute_instance.this
+  description = "Compute instance's data"
+  value       = yandex_compute_instance.this
 }
 
 output "compute_disks" {
-  description = "Secondary disks of the instance with device_name info"
+  description = "Secondary disk's data"
   value = (
     { for name, value in var.secondary_disks :
       name => merge(
