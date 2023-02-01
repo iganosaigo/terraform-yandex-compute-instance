@@ -15,7 +15,7 @@ variable "folder_id" {
 }
 
 variable "zone" {
-  description = "Zone for provision resources"
+  description = "Network Zone"
   type        = string
   default     = null
 }
@@ -39,14 +39,14 @@ variable "service_account_id" {
 }
 
 variable "labels" {
-  description = "A set of labels for the instance"
+  description = "A set of labels of the instance"
   type        = map(string)
   default     = {}
 }
 
 # https://cloud.yandex.ru/docs/compute/concepts/network#hostname
 variable "hostname" {
-  description = "Hostname for the instance"
+  description = "Hostname of the instance"
   type        = string
   default     = null
 }
@@ -65,33 +65,22 @@ variable "network_acceleration_type" {
 
 
 variable "cores" {
-  description = "Cores allocated for the instance"
+  description = "Cores allocated to the instance"
   type        = number
   default     = 2
 }
 
 
 variable "memory" {
-  description = "Memory allocated for the instance(in Gb)"
+  description = "Memory allocated to the instance(in Gb)"
   type        = number
   default     = 2
 }
 
 variable "core_fraction" {
-  description = "Core_fraction applied for the instance"
+  description = "Core_fraction applied to the instance"
   type        = number
   default     = null
-}
-
-
-variable "boot_disk" {
-  description = "Basic params for the boot_disk block."
-  type = object({
-    auto_delete = optional(bool)
-    device_name = optional(string)
-    mode        = optional(string)
-  })
-  default = {}
 }
 
 variable "image_snapshot_id" {
@@ -117,8 +106,18 @@ variable "image_family" {
   default     = "almalinux-8"
 }
 
+variable "boot_disk" {
+  description = "Basic params of the boot disk"
+  type = object({
+    auto_delete = optional(bool)
+    device_name = optional(string)
+    mode        = optional(string)
+  })
+  default = {}
+}
+
 variable "boot_disk_initialize_params" {
-  description = "Parameters for a new disk.id has middle priority."
+  description = "Additianl parameters of the boot disk"
   type = object({
     size       = optional(number)
     block_size = optional(number)
@@ -128,13 +127,13 @@ variable "boot_disk_initialize_params" {
 }
 
 variable "ssh_user" {
-  description = "Username for booted instance"
+  description = "Initial account username for instance"
   type        = string
   default     = "almalinux"
 }
 
 variable "ssh_pubkey" {
-  description = "Public RSA key to inject"
+  description = "Public RSA key path to inject"
   type        = string
   default     = "~/.ssh/id_rsa.pub"
 }
@@ -146,7 +145,7 @@ variable "user_data" {
 }
 
 variable "internal_ip_address" {
-  description = "Specify private IPv4 to instance"
+  description = "Private IPv4 allocated to the instance"
   type        = string
   default     = null
 }
@@ -157,13 +156,13 @@ variable "enable_nat" {
   default     = null
 }
 variable "nat_ip_address" {
-  description = "Specify public IPv4 address"
+  description = "Public IPv4 allocated to the address"
   type        = string
   default     = null
 }
 
 variable "security_group_ids" {
-  description = "List of security group IDs"
+  description = "Security group IDs linked to the instance"
   type        = list(string)
   default     = null
 }
@@ -171,7 +170,7 @@ variable "security_group_ids" {
 variable "secondary_disks" {
   description = "Additional disks with params"
   type = map(object({
-    # params for cumpute_instance secondary_disk block
+    # params for cumpute_instance secondary_disk
     auto_delete = optional(bool, false)
     mode        = optional(string)
     labels      = optional(map(string), {})
@@ -192,7 +191,7 @@ variable "preemptible" {
 }
 
 variable "serial_port_enable" {
-  description = "Enable serial port on instance"
+  description = "Enable serial port on the instance"
   type        = bool
   default     = false
 }

@@ -1,4 +1,4 @@
-# Yandex.Cloud Terraform VPC module
+# Yandex.Cloud Terraform Compute Instance module
 Provided as is. Make sure you check what it does before apply.
 <!-- BEGIN_TF_DOCS -->
 
@@ -48,7 +48,7 @@ Basic usage of this module is as follows:
 
 ```hcl
 module "example" {
-	 source  = "github.com/iganosaigo/terraform-yandex-vpc.git"
+	 source  = "github.com/iganosaigo/terraform-yandex-compute-instance.git"
 
 	 # Required variables
 	 name  = 

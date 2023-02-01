@@ -23,7 +23,7 @@ content: |-
 
   ```hcl
   module "example" {
-    {{"\t"}} source  = "github.com/iganosaigo/terraform-yandex-vpc.git"
+    {{"\t"}} source  = "github.com/iganosaigo/terraform-yandex-compute-instance.git"
     {{- if .Module.RequiredInputs }}
     {{"\n\t"}} # Required variables
     {{- range .Module.RequiredInputs }}

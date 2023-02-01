@@ -7,11 +7,9 @@ module "compute" {
   nat_ip_address = yandex_vpc_address.public.external_ipv4_address[0].address
   preemptible    = true
 
-  allow_stopping_for_update = false
-
-  serial_port_enable = false
-
-  user_data = data.cloudinit_config.configs.rendered
+  allow_stopping_for_update = true
+  serial_port_enable        = true
+  user_data                 = data.cloudinit_config.configs.rendered
 
   cores         = 2
   memory        = 2
