@@ -14,11 +14,9 @@ module "compute" {
   nat_ip_address = yandex_vpc_address.public.external_ipv4_address[0].address
   preemptible    = true
 
-  allow_stopping_for_update = false
-
-  serial_port_enable = false
-
-  user_data = data.cloudinit_config.configs.rendered
+  allow_stopping_for_update = true
+  serial_port_enable        = true
+  user_data                 = data.cloudinit_config.configs.rendered
 
   cores         = 2
   memory        = 2
@@ -98,34 +96,34 @@ module "example" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_allow_stopping_for_update"></a> [allow\_stopping\_for\_update](#input\_allow\_stopping\_for\_update) | Allow stop the instance in order to update properties | `bool` | `false` | no |
-| <a name="input_boot_disk"></a> [boot\_disk](#input\_boot\_disk) | Basic params for the boot\_disk block. | <pre>object({<br>    auto_delete = optional(bool)<br>    device_name = optional(string)<br>    mode        = optional(string)<br>  })</pre> | `{}` | no |
-| <a name="input_boot_disk_initialize_params"></a> [boot\_disk\_initialize\_params](#input\_boot\_disk\_initialize\_params) | Parameters for a new disk.id has middle priority. | <pre>object({<br>    size       = optional(number)<br>    block_size = optional(number)<br>    type       = optional(string, "network-hdd")<br>  })</pre> | `{}` | no |
-| <a name="input_core_fraction"></a> [core\_fraction](#input\_core\_fraction) | Core\_fraction applied for the instance | `number` | `null` | no |
-| <a name="input_cores"></a> [cores](#input\_cores) | Cores allocated for the instance | `number` | `2` | no |
+| <a name="input_boot_disk"></a> [boot\_disk](#input\_boot\_disk) | Basic params of the boot disk | <pre>object({<br>    auto_delete = optional(bool)<br>    device_name = optional(string)<br>    mode        = optional(string)<br>  })</pre> | `{}` | no |
+| <a name="input_boot_disk_initialize_params"></a> [boot\_disk\_initialize\_params](#input\_boot\_disk\_initialize\_params) | Additianl parameters of the boot disk | <pre>object({<br>    size       = optional(number)<br>    block_size = optional(number)<br>    type       = optional(string, "network-hdd")<br>  })</pre> | `{}` | no |
+| <a name="input_core_fraction"></a> [core\_fraction](#input\_core\_fraction) | Core\_fraction applied to the instance | `number` | `null` | no |
+| <a name="input_cores"></a> [cores](#input\_cores) | Cores allocated to the instance | `number` | `2` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the instance | `string` | `null` | no |
 | <a name="input_enable_nat"></a> [enable\_nat](#input\_enable\_nat) | Enable public IPv4 address | `bool` | `null` | no |
 | <a name="input_folder_id"></a> [folder\_id](#input\_folder\_id) | Folder ID | `string` | `null` | no |
-| <a name="input_hostname"></a> [hostname](#input\_hostname) | Hostname for the instance | `string` | `null` | no |
+| <a name="input_hostname"></a> [hostname](#input\_hostname) | Hostname of the instance | `string` | `null` | no |
 | <a name="input_image_family"></a> [image\_family](#input\_image\_family) | Default Image family name. It's ID has lowest priority | `string` | `"almalinux-8"` | no |
 | <a name="input_image_id"></a> [image\_id](#input\_image\_id) | Image ID. Has middle priority | `string` | `null` | no |
 | <a name="input_image_snapshot_id"></a> [image\_snapshot\_id](#input\_image\_snapshot\_id) | Image snapshot id to initialize from.<br>Highest priority over var.image\_id<br>and var.image\_family" | `string` | `null` | no |
-| <a name="input_internal_ip_address"></a> [internal\_ip\_address](#input\_internal\_ip\_address) | Specify private IPv4 to instance | `string` | `null` | no |
-| <a name="input_labels"></a> [labels](#input\_labels) | A set of labels for the instance | `map(string)` | `{}` | no |
-| <a name="input_memory"></a> [memory](#input\_memory) | Memory allocated for the instance(in Gb) | `number` | `2` | no |
+| <a name="input_internal_ip_address"></a> [internal\_ip\_address](#input\_internal\_ip\_address) | Private IPv4 allocated to the instance | `string` | `null` | no |
+| <a name="input_labels"></a> [labels](#input\_labels) | A set of labels of the instance | `map(string)` | `{}` | no |
+| <a name="input_memory"></a> [memory](#input\_memory) | Memory allocated to the instance(in Gb) | `number` | `2` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name for the resource | `string` | n/a | yes |
-| <a name="input_nat_ip_address"></a> [nat\_ip\_address](#input\_nat\_ip\_address) | Specify public IPv4 address | `string` | `null` | no |
+| <a name="input_nat_ip_address"></a> [nat\_ip\_address](#input\_nat\_ip\_address) | Public IPv4 allocated to the address | `string` | `null` | no |
 | <a name="input_network_acceleration_type"></a> [network\_acceleration\_type](#input\_network\_acceleration\_type) | Network acceleration type | `string` | `null` | no |
 | <a name="input_platform_id"></a> [platform\_id](#input\_platform\_id) | Hardware CPU platform name | `string` | `"standard-v3"` | no |
 | <a name="input_preemptible"></a> [preemptible](#input\_preemptible) | Make instance preemptible | `bool` | `false` | no |
-| <a name="input_secondary_disks"></a> [secondary\_disks](#input\_secondary\_disks) | Additional disks with params | <pre>map(object({<br>    # params for cumpute_instance secondary_disk block<br>    auto_delete = optional(bool, false)<br>    mode        = optional(string)<br>    labels      = optional(map(string), {})<br><br>    # params for compute_disk resource<br>    type        = optional(string, "network-hdd")<br>    size        = optional(number, 10)<br>    block_size  = optional(number, 4096)<br>    device_name = optional(string)<br>  }))</pre> | `{}` | no |
-| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | List of security group IDs | `list(string)` | `null` | no |
-| <a name="input_serial_port_enable"></a> [serial\_port\_enable](#input\_serial\_port\_enable) | Enable serial port on instance | `bool` | `false` | no |
+| <a name="input_secondary_disks"></a> [secondary\_disks](#input\_secondary\_disks) | Additional disks with params | <pre>map(object({<br>    # params for cumpute_instance secondary_disk<br>    auto_delete = optional(bool, false)<br>    mode        = optional(string)<br>    labels      = optional(map(string), {})<br><br>    # params for compute_disk resource<br>    type        = optional(string, "network-hdd")<br>    size        = optional(number, 10)<br>    block_size  = optional(number, 4096)<br>    device_name = optional(string)<br>  }))</pre> | `{}` | no |
+| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Security group IDs linked to the instance | `list(string)` | `null` | no |
+| <a name="input_serial_port_enable"></a> [serial\_port\_enable](#input\_serial\_port\_enable) | Enable serial port on the instance | `bool` | `false` | no |
 | <a name="input_service_account_id"></a> [service\_account\_id](#input\_service\_account\_id) | Service account ID for the instance | `string` | `null` | no |
-| <a name="input_ssh_pubkey"></a> [ssh\_pubkey](#input\_ssh\_pubkey) | Public RSA key to inject | `string` | `"~/.ssh/id_rsa.pub"` | no |
-| <a name="input_ssh_user"></a> [ssh\_user](#input\_ssh\_user) | Username for booted instance | `string` | `"almalinux"` | no |
+| <a name="input_ssh_pubkey"></a> [ssh\_pubkey](#input\_ssh\_pubkey) | Public RSA key path to inject | `string` | `"~/.ssh/id_rsa.pub"` | no |
+| <a name="input_ssh_user"></a> [ssh\_user](#input\_ssh\_user) | Initial account username for instance | `string` | `"almalinux"` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | VPC Subnet ID | `string` | n/a | yes |
 | <a name="input_user_data"></a> [user\_data](#input\_user\_data) | Cloud-init user-data | `string` | `null` | no |
-| <a name="input_zone"></a> [zone](#input\_zone) | Zone for provision resources | `string` | `null` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | Network Zone | `string` | `null` | no |
 
 ## Outputs
 
